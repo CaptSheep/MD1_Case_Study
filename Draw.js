@@ -95,19 +95,19 @@ class Pieces {
     checkImpact(x, y, piece) {
         for (let r = 0; r < piece.length; r++) {
             for (let c = 0; c < piece.length; c++) {
-                if (!piece[r][c]) {
+                if (!piece[r][c]) {  // neu k co cai nay thi hinh ban dau se bao gom tat ca cac goc quay ( canvas k hien thi ) nen cac hinh sau neu roi vao se bi day len tren
                     continue;
                 }
                 let newX = this.x + c + x;
                 let newY = this.y + r + y;
 
-                if (newX < 0 || newX >= COLUMN || newY >= ROW) {
+                if (newX < 0 || newX >= COLUMN || newY >= ROW) { // check va cham voi 3 canh trai, phai , duoi
                     return true
                 }
-                if (newY < 0) {
+                if (newY < 0) { // check va cham voi canh tren cung
                     continue;
                 }
-                if (board[newY][newX] !== COLOR) {
+                if (board[newY][newX] !== COLOR) { // cai nay de khong cho hinh sau de vao hinh truoc
                     return true
                 }
             }
@@ -119,7 +119,7 @@ class Pieces {
     lockMove() {
         for (let r = 0; r < this.activeShape.length; r++) {
             for (let c = 0; c < this.activeShape.length; c++) {
-                if (!this.activeShape[r][c]) {
+                if (!this.activeShape[r][c]) { //sau khi hinh dau tien xuong se lock o cuoi canvas, nhung hinh thu 2 se khong dc ve ra
                     continue;
                 }
                 if (this.y + r < 0) {
@@ -152,10 +152,27 @@ class Pieces {
 
     }
 
-    // setPoint() {
-    //         let full = true;
-    //
-    //      }
+    setPoint() {
+        for (let r = 0; r < ROW; r++) {
+            let full = true; // mac dinh cot dang day la full
+            for (let c = 0; c < COLUMN; c++) {
+                full = full && (board[r][c] !== COLOR) // cap nhat lai gia tri full
+            }
+            if (full) {
+                for (let i = r; i > 1; i--) { // neu cot full thi tu dong giam 1 hang xuong
+                    for (let c = 0; c < COLUMN; c++) {
+                        board[i][c] = board[i - 1][c] // cap nhat vi tri cua cot
+                    }
+                }
+                for (let c = 0; c < COLUMN; c++) {
+                    board[0][c] = COLOR // ve lai dong dau tien cua bang canvas bang 1 hang moi
+                }
+                point += 10
+            }
+        }
+        DrawBoard()
+        document.getElementById("score").innerHTML = point
     }
+}
 
 

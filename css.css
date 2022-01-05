@@ -1,0 +1,27 @@
+
+#html{
+    background: antiquewhite;
+}
+#score{
+    color: crimson;
+
+}
+div{
+    text-align: right ;
+    position: absolute;
+}
+#my_canvas{
+    right: 500px;
+    display: block;
+    margin: auto;
+
+}
+span{
+    display: inline;
+}
+p{
+    font-size: 40px;
+    display: block;
+    margin: auto;
+    color: royalblue;
+}
